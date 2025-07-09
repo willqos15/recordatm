@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulário</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="divmeio">
+	<h2>Cadastro Record Altamira</h2>
+	<br>
+	<p>Para participar inscreva-se no canal no Youtube:</p>
+	<br>
+	<button id="btnInscrever">Ir para o canal</button>
+	  
+  </div>
+  
+  
+  
+  <form id="formulario-contato">
+  
+    <label class="legenda">Nome Completo:</label><br>
+    <input type="text" placeholder= "Digite aqui seu nome Completo" name="nome"
+	minlength="5" required title="Nome deve ter pelo menos 5 caracteres"><br><br>
+	
+	   
+
+    <label class="legenda">Contato de Celular:</label><br>
+    <input type="number" placeholder= "DDD XXXXXXXXXX" name="numero" required
+       minlength="11" title="Digite seu número completo 11"><br><br>
+
+    <label class="legenda">Código:</label><br>
+    <input type="text" placeholder= "Digite aqui o código da compra" name="codigo" required><br><br>
+
+
+
+<label style="display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;">
+<input type="checkbox" id="confirmacao" onclick="liberarFormulario()"> Me inscrevi no canal do Youtube
+</label>
+ 
+ <br>
+ <br>
+
+
+<div class="divmeio">
+  <button class="btnenviar" type="submit">Enviar</button>
+</div>
+
+  </form>
+
+	<br>
+	<div class="divmeio">
+  <p id="mensagem" class = "legenda_aviso"></p>
+  </div>
+  
+  </div>
+
+
+
+<script>
+	const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
+
+	  document.getElementById("btnInscrever").onclick = () => {
+      window.open(canalURL, "_blank");
+      setTimeout(() => {
+        document.getElementById("formulario-contato").style.display = "block";
+      }, 2000); // espera 2s e libera o form
+    };
+
+
+
+
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzocsT-HMq9hQwYo1CJYDifDX1_oF7zHY8wPtsxOxb7z8aYFikM10X5FWzhRkgHygzn/exec';
+  const form = document.getElementById('formulario-contato');
+  const msg = document.getElementById('mensagem');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+	
+	msg.innerText = "Aguarde... verificando código.";
+
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(response => response.text())
+    .then(resposta => {
+      if (resposta === "OK") {
+        msg.innerText = "Enviado com sucesso!";
+        form.reset();
+      } else if (resposta === "USADO") {
+        msg.innerText = "Este código já foi usado.";
+      } else if (resposta === "INVALIDO") {
+        msg.innerText = "Código inválido.";
+      } else {
+        msg.innerText = "Erro inesperado. Tente novamente.";
+      }
+    })
+    .catch(() => {
+      msg.innerText = 'Erro ao enviar. Tente novamente.';
+    });
+  });
+</script>
+
+
+
+
+
+
+</body>
+</html>
