@@ -2,14 +2,16 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Formulário</title>
+  <title>Cupom Record Atm</title>
    <link rel="stylesheet" href="styles.css">
+   <link rel="icon" type="image/png" href="ico.png">
+
 </head>
 <body>
 
 <div class="container">
   <div class="divmeio">
-	<h2>Cadastro Record Altamira</h2>
+	<h2>Cupom Record Altamira</h2>
 	<br>
 	<p>Para participar inscreva-se no canal no Youtube:</p>
 	<br>
@@ -22,13 +24,13 @@
   <form id="formulario-contato">
   
     <label class="legenda">Nome Completo:</label><br>
-    <input type="text" placeholder= "Digite aqui seu nome Completo" name="nome"
+    <input type="text" placeholder= "Digite aqui seu nome Completo" name="nome" id="nome"
 	minlength="5" required title="Nome deve ter pelo menos 5 caracteres"><br><br>
 	
 	   
 
     <label class="legenda">Contato de Celular:</label><br>
-    <input type="number" placeholder= "DDD XXXXXXXXXX" name="numero" required
+    <input type="tel" placeholder= "DDD XXXXXXXXXX" name="numero" required
        minlength="11" title="Digite seu número completo 11"><br><br>
 
     <label class="legenda">Código:</label><br>
@@ -45,7 +47,7 @@
 
 
 <div class="divmeio">
-  <button class="btnenviar" type="submit">Enviar</button>
+  <button class="btnenviar" id="btnenviar" type="submit">Enviar</button>
 </div>
 
   </form>
@@ -60,6 +62,14 @@
 
 
 <script>
+
+
+
+
+
+
+
+
 	const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
 
 	  document.getElementById("btnInscrever").onclick = () => {
@@ -72,15 +82,58 @@
 
 
 
+  const nome = document.getElementById("nome");
+  const msg = document.getElementById("mensagem");
+  const checkbox = document.getElementById("confirmacao");
+
+
+  function validarFormulario() {
+    let erros = [];
+
+    if (nome.value.trim().length < 5) {
+      erros.push("Nome deve ter no mínimo 5 caracteres.");
+    }
+	
+	if (numero.value.trim().length < 11) {
+      erros.push("Número de celular deve ter 11 dígitos (DDD + número).");
+    }
+	
+	
+	if (checkbox.checked) {
+	} else {
+		erros.push("Não está marcada.");
+	}
+
+
+    if (erros.length === 0) {
+      btnenviar.disabled = false;
+      msg.textContent = "";
+    } else {
+      btnenviar.disabled = true;
+      msg.textContent = erros.join(" ");
+    }
+	
+	
+
+
+
+  }
+
+  // Verifica enquanto digita
+  nome.addEventListener("input", validarFormulario);
+
+
+
+
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzocsT-HMq9hQwYo1CJYDifDX1_oF7zHY8wPtsxOxb7z8aYFikM10X5FWzhRkgHygzn/exec';
   const form = document.getElementById('formulario-contato');
-  const msg = document.getElementById('mensagem');
+  
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 	
-	msg.innerText = "Aguarde... verificando código.";
+	msg.innerText = "Aguarde... verificando dados.";
 
 
     fetch(scriptURL, {
