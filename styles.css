@@ -42,7 +42,7 @@ p {
 
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="tel"] {
   width: 100%;
   padding: 12px;
   border: none;
