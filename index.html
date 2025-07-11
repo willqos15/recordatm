@@ -88,15 +88,24 @@ data-layout="full" data-count="hidden"></div>-->
 	const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
 
 document.getElementById("btnInscrever").onclick = () => {
-  const popup = window.open(
-    "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1",
-    "InscricaoYouTube",
-    "width=500,height=600"
-  );
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+  if (isMobile) {
+    // Abre nova aba no celular
+    window.open("https://www.youtube.com/@grupomiranteatm?sub_confirmation=1", "_blank");
+  } else {
+    // Abre popup no computador
+    window.open(
+      "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1",
+      "InscricaoYouTube",
+      "width=500,height=600"
+    );
+  }
+
+  // Após 5 segundos libera o formulário
   setTimeout(() => {
     document.getElementById("formulario-contato").style.display = "block";
-  }, 5000); // espera 5s e libera o form
+  }, 5000);
 };
 
 
@@ -105,13 +114,12 @@ document.getElementById("btnInscrever").onclick = () => {
   const nome = document.getElementById("nome");
   const msg = document.getElementById("mensagem");
   const checkbox = document.getElementById("confirmacao");
-  const vouch = document.getElementById("code");
   
 // Aqui faz a conversão automática para maiúsculas
-	vouch.addEventListener("input", () => {
-   vouch.value = codigo.value.toUpperCase();
+const vouch = document.getElementById("code");
+vouch.addEventListener("input", () => {
+  vouch.value = vouch.value.toUpperCase();
 });
-  
 
 
   function validarFormulario() {
