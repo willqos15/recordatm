@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cupom Record Atm</title>
+  <title>Grupo Mirante</title>
    <link rel="stylesheet" href="styles.css">
    <link rel="icon" type="image/png" href="ico.png">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,8 @@
 
 <div class="container">
   <div class="divmeio">
-	<h2>Cupom Record Altamira</h2>
+	<h2>GRUPO MIRANTE</h2>
+	<h3>Promoção: Você De Carro 0 Km</h3>
 	
 	
 	
@@ -51,7 +52,7 @@ data-layout="full" data-count="hidden"></div>-->
        minlength="11" title="Digite seu número completo 11"><br><br>
 
     <label class="legenda">Código:</label><br>
-    <input type="text" placeholder= "Digite aqui o código da compra" name="codigo" required><br><br>
+    <input type="text" placeholder= "Digite aqui o código da compra" name="codigo" id ="code" required><br><br>
 
 
 
@@ -104,6 +105,13 @@ document.getElementById("btnInscrever").onclick = () => {
   const nome = document.getElementById("nome");
   const msg = document.getElementById("mensagem");
   const checkbox = document.getElementById("confirmacao");
+  const vouch = document.getElementById("code");
+  
+// Aqui faz a conversão automática para maiúsculas
+	vouch.addEventListener("input", () => {
+   vouch.value = codigo.value.toUpperCase();
+});
+  
 
 
   function validarFormulario() {
