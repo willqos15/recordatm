@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="styles.css">
    <link rel="icon" type="image/png" href="ico.png">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 
 
 
@@ -20,7 +20,9 @@
 	
 	
 
-<div class="g-ytsubscribe" data-channelid="UC7NB3VsmMYnjHIC9Ki1qwxA" data-layout="full" data-count="hidden"></div>
+<!-- <div class="g-ytsubscribe"
+data-channelid="UC7NB3VsmMYnjHIC9Ki1qwxA"
+data-layout="full" data-count="hidden"></div>-->
 
 
 	<br>
@@ -84,12 +86,17 @@
 
 	const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
 
-	  document.getElementById("btnInscrever").onclick = () => {
-      window.open(canalURL, "_blank");
-      setTimeout(() => {
-        document.getElementById("formulario-contato").style.display = "block";
-      }, 2000); // espera 2s e libera o form
-    };
+document.getElementById("btnInscrever").onclick = () => {
+  const popup = window.open(
+    "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1",
+    "InscricaoYouTube",
+    "width=500,height=600"
+  );
+
+  setTimeout(() => {
+    document.getElementById("formulario-contato").style.display = "block";
+  }, 5000); // espera 5s e libera o form
+};
 
 
 
