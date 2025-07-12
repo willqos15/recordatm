@@ -48,7 +48,7 @@ data-layout="full" data-count="hidden"></div>-->
 	   
 
     <label class="legenda">Contato de Celular:</label><br>
-    <input type="tel" placeholder= "DDD XXXXXXXXXX" name="numero" required
+    <input type="tel" placeholder= "DDD XXXXXXXXXX" name="numero" id="numero" required
        minlength="11" title="Digite seu número completo 11"><br><br>
 
     <label class="legenda">Código:</label><br>
@@ -57,7 +57,7 @@ data-layout="full" data-count="hidden"></div>-->
 
 
 <label style="display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;">
-<input type="checkbox" id="confirmacao" onclick="liberarFormulario()" required> Me inscrevi no canal do Youtube
+<input type="checkbox" id="confirmacao" required> Me inscrevi no canal do Youtube
 </label>
  
  <br>
@@ -85,7 +85,7 @@ data-layout="full" data-count="hidden"></div>-->
 
 
 
-	const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
+const canalURL = "https://www.youtube.com/@grupomiranteatm?sub_confirmation=1"; 
 
 document.getElementById("btnInscrever").onclick = () => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -102,24 +102,31 @@ document.getElementById("btnInscrever").onclick = () => {
     );
   }
 
-  // Após 5 segundos libera o formulário
+  // Após 1 segundos libera o formulário
   setTimeout(() => {
     document.getElementById("formulario-contato").style.display = "block";
-  }, 5000);
+  }, 1000);
 };
 
 
 
 
-  const nome = document.getElementById("nome");
-  const msg = document.getElementById("mensagem");
-  const checkbox = document.getElementById("confirmacao");
+
+  
+const nome = document.getElementById("nome");
+const numero = document.getElementById("numero");  
+const msg = document.getElementById("mensagem");
+const checkbox = document.getElementById("confirmacao");
+const btnenviar = document.getElementById("btnenviar");
+
   
 // Aqui faz a conversão automática para maiúsculas
 const vouch = document.getElementById("code");
 vouch.addEventListener("input", () => {
   vouch.value = vouch.value.toUpperCase();
 });
+
+
 
 
   function validarFormulario() {
@@ -154,8 +161,11 @@ vouch.addEventListener("input", () => {
 
   }
 
-  // Verifica enquanto digita
-  nome.addEventListener("input", validarFormulario);
+  // Verifica enquanto digita  
+nome.addEventListener("input", validarFormulario);
+numero.addEventListener("input", validarFormulario);
+checkbox.addEventListener("change", validarFormulario);
+validarFormulario();
 
 
 
@@ -163,10 +173,15 @@ vouch.addEventListener("input", () => {
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzocsT-HMq9hQwYo1CJYDifDX1_oF7zHY8wPtsxOxb7z8aYFikM10X5FWzhRkgHygzn/exec';
   const form = document.getElementById('formulario-contato');
-  
+
+
+
+
+
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+	vouch.value = vouch.value.toUpperCase();  // força maiúsculas antes de enviar
 	
 	msg.innerText = "Aguarde... verificando dados.";
 
